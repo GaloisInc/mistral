@@ -2,7 +2,7 @@
 Mistral
 =======
 
-Mistral is an experimental for distributed programming, with an emphasis on
+Mistral is an experimental language for distributed programming, with an emphasis on
 the specification and maintenance of a virtual overlay network. The current Mistral compiler supports the first generation of Mistral, so not all features we architected for the language are supported at present. This open source package includes our compiler and an interpreter. Use of Mistral for running programs on distributed systems requires a run-time system not included in this package. Thus this Mistral package allows only for experimentation with the language.
 
 Building
