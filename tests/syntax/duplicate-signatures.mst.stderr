@@ -1,0 +1,5 @@
+ 
+[error] tests/syntax/duplicate-signatures.mst:4,3-4,4
+  multiple signatures for binding `f`
+    tests/syntax/duplicate-signatures.mst:2,3-2,4
+    tests/syntax/duplicate-signatures.mst:3,3-3,4

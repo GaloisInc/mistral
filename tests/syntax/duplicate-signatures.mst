@@ -1,0 +1,5 @@
+module Main where
+{ f : Int
+; f : Char
+; f = 10
+}

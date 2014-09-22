@@ -1,0 +1,30 @@
+module Main where
+
+tasks = taskSet
+  task foo on #foo @ #foo
+  task bar         @ #bar
+
+topo = topology
+  a = node ()
+  b = node () @ #foo
+
+  a <-> b
+
+main = schedule
+  tasks using topo
+
+data Message = Ping String
+             | Pong String
+
+foo = transitions
+  timeout 0:0:0 -> { send #bar (Ping "Hello")
+                   ; goto wait }
+
+wait = transitions
+  ? Pong msg -> { log msg
+                ; done }
+
+bar = transitions
+  ? Ping msg -> { log msg
+                ; send #foo (Pong "Goodbye")
+                ; done }

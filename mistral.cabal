@@ -1,0 +1,118 @@
+name:                mistral
+version:             1.0.0.0
+author:              Trevor Elliott
+maintainer:          trevor@galois.com
+category:            Language
+build-type:          Simple
+cabal-version:       >=1.10
+
+library
+  exposed-modules:     Mistral.Simple,
+
+                       Mistral.Driver,
+                       Mistral.Driver.Monad
+
+                       Mistral.Parser,
+                       Mistral.Parser.AST,
+                       Mistral.Parser.Finalize,
+                       Mistral.Parser.Layout,
+                       Mistral.Parser.Lexer,
+                       Mistral.Parser.LexerCore,
+                       Mistral.Parser.Parser,
+                       Mistral.Parser.ParserCore,
+                       Mistral.Parser.Unlit,
+
+                       Mistral.ModuleSystem,
+                       Mistral.ModuleSystem.Export,
+                       Mistral.ModuleSystem.Interface,
+                       Mistral.ModuleSystem.Name,
+                       Mistral.ModuleSystem.NameMap,
+                       Mistral.ModuleSystem.Prelude,
+                       Mistral.ModuleSystem.Rename,
+
+                       Mistral.Schedule.Interp,
+                       Mistral.Schedule.Monad,
+                       Mistral.Schedule.Static,
+                       Mistral.Schedule.Value,
+
+                       Mistral.TypeCheck,
+                       Mistral.TypeCheck.AST,
+                       Mistral.TypeCheck.Env,
+                       Mistral.TypeCheck.Infer,
+                       Mistral.TypeCheck.Interface,
+                       Mistral.TypeCheck.Monad,
+                       Mistral.TypeCheck.Patterns,
+                       Mistral.TypeCheck.Solver,
+                       Mistral.TypeCheck.TcData,
+                       Mistral.TypeCheck.Translate,
+                       Mistral.TypeCheck.Unify,
+
+                       Mistral.CodeGen.DeadCode,
+                       Mistral.CodeGen.LambdaLift,
+                       Mistral.CodeGen.Link,
+                       Mistral.CodeGen.ResolveTags,
+                       Mistral.CodeGen.Specialize,
+
+                       Mistral.Semantics.SimpleInterp,
+
+                       Mistral.Utils.Lens,
+                       Mistral.Utils.Misc,
+                       Mistral.Utils.Names,
+                       Mistral.Utils.PP,
+                       Mistral.Utils.Panic,
+                       Mistral.Utils.SCC,
+                       Mistral.Utils.Source
+
+  other-modules:       Paths_mistral
+
+  build-depends:       base >= 4.5 && < 5,
+                       array,
+                       bytestring,
+                       text,
+                       pretty,
+                       monadLib,
+                       filepath,
+                       containers,
+                       time,
+                       random,
+                       cereal
+
+  hs-source-dirs:      src
+  build-tools:         alex, happy
+  default-language:    Haskell2010
+  ghc-options:         -Wall
+
+
+
+executable mistral
+  main-is:             Main.hs
+  hs-source-dirs:      mistral
+  build-depends:       base >= 4.5 && < 5,
+                       text,
+                       pretty,
+                       bytestring,
+                       filepath,
+                       random,
+                       mistral
+  default-language:    Haskell2010
+  ghc-options:         -Wall
+
+
+
+Test-Suite test-examples
+    main-is:       Main.hs
+    other-modules: Options, Discover
+    type:          exitcode-stdio-1.0
+    build-depends: base >= 4.5 && < 5,
+                   text,
+                   bytestring,
+                   directory,
+                   filepath,
+                   containers,
+                   test-framework,
+                   test-framework-quickcheck2,
+                   test-framework-golden,
+                   QuickCheck >= 2.6,
+                   mistral
+    hs-source-dirs: tests
+    ghc-options:   -Wall
