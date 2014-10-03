@@ -2,6 +2,8 @@ name:                mistral
 version:             1.0.0.0
 author:              Trevor Elliott
 maintainer:          trevor@galois.com
+license:             BSD3
+license-file:        LICENSE
 category:            Language
 build-type:          Simple
 cabal-version:       >=1.10
