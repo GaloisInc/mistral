@@ -148,13 +148,13 @@ mod_body :: { ([Import],[TopDecl]) }
 
 -- NOTE: use sep1_body for the import list here, so that happy can see through
 -- the production, and notice when the import list will end
-mod_contents(sep)
+mod_contents(sep) :: { ([Import], [TopDecl]) }
   : sep1_body(sep, import) sep sep1(sep, top_decl) { (reverse $1,$3) }
   | sep1(sep, import)                              { ($1,[]) }
   | sep1(sep, top_decl)                            { ([],$1) }
   | {- empty -}                                    { ([],[]) }
 
-import
+import :: { Import }
   : 'import' mod_name
     { Import { impModule = locThing $2
              , impSource = getSource $1 `mappend` getSource $2 } }
@@ -163,7 +163,7 @@ top_decl :: { TopDecl }
   : decl(expr) { TDecl $1 }
   | data       { TData $1 }
 
-decl(rhs)
+decl(rhs) :: { Decl rhs }
   : bind(rhs) { mkBind $1 }
   | sig       { mkSig  $1 }
 
@@ -178,7 +178,7 @@ decl :: { Decl Expr }
   | sig        { mkSig $1  }
 
 -- bindings, parameterized over their RHS
-bind(rhs)
+bind(rhs) :: { Located (Bind rhs) }
   : ident list(ident) '=' rhs
     { Bind { bName   = $1
            , bSig    = Nothing
@@ -317,7 +317,7 @@ atom :: { Located P.Atom }
 -- Action Statements -----------------------------------------------------------
 
 actions :: { Expr }
-  : 'actions' '{' '}'             { EActions [] } 
+  : 'actions' '{' '}'             { EActions [] }
   | 'actions' layout_block1(stmt) { EActions $2 }
 
 -- action statements
@@ -506,34 +506,34 @@ tag :: { Located P.Tag }
 
 -- Utilities -------------------------------------------------------------------
 
-list(p)
+list(p) :: { [p] }
   : list1(p)    { $1 }
   | {- empty -} { [] }
 
-list1(p)
+list1(p) :: { [p] }
   : list1_body(p) { reverse $1 }
 
-list1_body(p)
+list1_body(p) :: { [p] }
   : list1_body(p) p { $2 : $1 }
   | p               { [$1]    }
 
 
-sep(punc,p)
+sep(punc,p) :: { [p] }
   : sep1(punc,p) { $1 }
   | {- empty -}  { [] }
 
-sep1(punc,p)
+sep1(punc,p) :: { [p] }
   : sep1_body(punc,p) { reverse $1 }
 
-sep1_body(punc,p)
+sep1_body(punc,p) :: { [p] }
   : sep1_body(punc,p) punc p { $3 : $1 }
   | p                        { [$1]    }
 
-layout_block1(e)
+layout_block1(e) :: { e }
   : 'v{' sep1('v;', e) 'v}' { $2 }
   | '{'  sep1(';',  e) '}'  { $2 }
 
-layout_block(e)
+layout_block(e) :: { e }
   : 'v{' sep('v;', e) 'v}' { $2 }
   | '{'  sep(';',  e) '}'  { $2 }
 
