@@ -1,3 +1,5 @@
+{-# LANGUAGE FlexibleContexts #-}
+
 module Mistral.CodeGen.Link where
 
 import Mistral.Schedule.Static ( staticSchedule )

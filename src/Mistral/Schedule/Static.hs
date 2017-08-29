@@ -1,6 +1,7 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE PatternGuards #-}
+{-# LANGUAGE FlexibleContexts #-}
 
 -- | This module handles the compile-time interpretation of the `main` schedule.
 module Mistral.Schedule.Static (
